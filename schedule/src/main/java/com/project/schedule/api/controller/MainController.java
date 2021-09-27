@@ -11,14 +11,18 @@ import java.time.LocalDateTime;
 @Controller
 public class MainController {
 
-    @Autowired
     DefaultStudentService defaultStudentService;
+
+    @Autowired
+    public void setDefaultStudentService(DefaultStudentService defaultStudentService) {
+        this.defaultStudentService = defaultStudentService;
+    }
 
     @GetMapping("/")
     public String getMainPage(){
-        Student student = new Student(1L,"Alex","sasha",12, LocalDateTime.parse("2002-02-12T12:02"));
+        Student student = new Student(1L,"Nazar","nazar",19, LocalDateTime.parse("2002-07-02T12:02"));
         defaultStudentService.addStudent(student);
-        System.out.println(defaultStudentService.findByEmail("sasha"));
+        System.out.println(defaultStudentService.findByEmail("nazar"));
         return "main";
     }
 }
