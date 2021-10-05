@@ -1,35 +1,38 @@
 package com.project.schedule.domain.service.studentService;
 
-import com.project.schedule.domain.model.Course;
+import com.project.schedule.domain.model.CourseModel;
+import com.project.schedule.persistence.repository.CourseRepo.DefaultCourseRepo;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.Set;
 
 @Service
 public class CourseService implements DefaultCourseService{
 
-    private Map<Long, Course> courseMap = new HashMap<>();
+    DefaultCourseRepo courseRepo;
 
-    @Override
-    public List<Course> getAllCourses() {
-        return new ArrayList<>(courseMap.values());
+
+    public CourseService(DefaultCourseRepo courseRepo) {
+        this.courseRepo = courseRepo;
     }
 
     @Override
-    public Course findById(long id) {
-        return courseMap.get(id);
+    public Set<CourseModel> getAllCourses() {
+        return courseRepo.getAllCourses();
     }
 
     @Override
-    public Course findByTitle(String title) {
-        return courseMap.values().stream().filter(course -> course.getTitle().equals(title)).findAny().get();
+    public CourseModel findById(long id) {
+        return courseRepo.findById(id);
     }
 
     @Override
-    public void addCourse(Course course) {
-        courseMap.put(course.getId(), course);
+    public CourseModel findByTitle(String title) {
+        return courseRepo.findByTitle(title);
+    }
+
+    @Override
+    public void addCourse(CourseModel course) {
+        courseRepo.addCourse(course);
     }
 }

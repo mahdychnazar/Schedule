@@ -1,21 +1,27 @@
 package com.project.schedule.domain.model;
 
 import java.time.LocalDateTime;
+import java.util.Set;
 
-public class Student {
+public class StudentModel {
 
     Long id;
     String name;
     String email;
     int age;
     LocalDateTime birthDate;
+    Set<Long> courseModels;
 
-    public Student(Long id, String name, String email, int age, LocalDateTime birthDate) {
+    public StudentModel() {
+    }
+
+    public StudentModel(Long id, String name, String email, int age, LocalDateTime birthDate, Set<Long> courseModels) {
         this.id = id;
         this.name = name;
         this.email = email;
         this.age = age;
         this.birthDate = birthDate;
+        this.courseModels = courseModels;
     }
 
     public Long getId() {
@@ -58,14 +64,23 @@ public class Student {
         this.email = email;
     }
 
+    public Set<Long> getCourseModels() {
+        return courseModels;
+    }
+
+    public void setCourseModels(Set<Long> courseModels) {
+        this.courseModels = courseModels;
+    }
+
     @Override
     public String toString() {
-        return "Student{" +
+        return "StudentModel{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", email='" + email + '\'' +
                 ", age=" + age +
                 ", birthDate=" + birthDate +
+                ", courseModels=" + courseModels +
                 '}';
     }
 }

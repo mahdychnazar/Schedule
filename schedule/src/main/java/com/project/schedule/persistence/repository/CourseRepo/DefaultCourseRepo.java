@@ -1,11 +1,11 @@
-package com.project.schedule.domain.service.studentService;
+package com.project.schedule.persistence.repository.CourseRepo;
+
 
 import com.project.schedule.domain.model.CourseModel;
 
-import java.util.List;
 import java.util.Set;
 
-public interface DefaultCourseService {
+public interface DefaultCourseRepo {
 
     Set<CourseModel> getAllCourses();
 

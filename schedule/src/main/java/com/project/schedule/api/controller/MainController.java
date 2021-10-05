@@ -1,12 +1,13 @@
 package com.project.schedule.api.controller;
 
-import com.project.schedule.domain.model.Student;
+import com.project.schedule.domain.model.StudentModel;
 import com.project.schedule.domain.service.studentService.DefaultStudentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 
 import java.time.LocalDateTime;
+import java.util.Collections;
 
 @Controller
 public class MainController {
@@ -20,7 +21,7 @@ public class MainController {
 
     @GetMapping("/")
     public String getMainPage(){
-        Student student = new Student(1L,"Nazar","nazar",19, LocalDateTime.parse("2002-07-02T12:02"));
+        StudentModel student = new StudentModel(1L,"Nazar","nazar",19, LocalDateTime.parse("2002-07-02T12:02"), Collections.emptySet());
         defaultStudentService.addStudent(student);
         System.out.println(defaultStudentService.findByEmail("nazar"));
         return "main";

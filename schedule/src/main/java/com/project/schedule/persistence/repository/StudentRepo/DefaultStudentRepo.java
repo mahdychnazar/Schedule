@@ -1,12 +1,12 @@
-package com.project.schedule.domain.service.studentService;
+package com.project.schedule.persistence.repository.StudentRepo;
 
 import com.project.schedule.domain.model.StudentModel;
 
-import java.util.List;
+import java.util.Set;
 
-public interface DefaultStudentService {
+public interface DefaultStudentRepo {
 
-    List<StudentModel> getAllStudents();
+    Set<StudentModel> getAllStudents();
 
     StudentModel findById(long id);
 

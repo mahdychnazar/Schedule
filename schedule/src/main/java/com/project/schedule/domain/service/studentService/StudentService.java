@@ -1,35 +1,38 @@
 package com.project.schedule.domain.service.studentService;
 
-import com.project.schedule.domain.model.Student;
+import com.project.schedule.domain.model.StudentModel;
+import com.project.schedule.persistence.repository.StudentRepo.DefaultStudentRepo;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 @Service
 public class StudentService implements DefaultStudentService{
 
-    Map<Long,Student> studentMap = new HashMap<>();
+    DefaultStudentRepo studentRepo;
 
-    @Override
-    public List<Student> getAllStudents() {
-        return new ArrayList<>(studentMap.values());
+    public StudentService(DefaultStudentRepo studentRepo) {
+        this.studentRepo = studentRepo;
     }
 
     @Override
-    public Student findById(long id) {
-        return studentMap.get(id);
+    public List<StudentModel> getAllStudents() {
+        return new ArrayList<>(studentRepo.getAllStudents());
     }
 
     @Override
-    public Student findByEmail(String email) {
-        return studentMap.values().stream().filter(student -> student.getEmail().equals(email)).findAny().get();
+    public StudentModel findById(long id) {
+        return studentRepo.findById(id);
     }
 
     @Override
-    public void addStudent(Student student) {
-        studentMap.put(student.getId(),student);
+    public StudentModel findByEmail(String email) {
+        return studentRepo.findByEmail(email);
+    }
+
+    @Override
+    public void addStudent(StudentModel student) {
+        studentRepo.addStudent(student);
     }
 }
