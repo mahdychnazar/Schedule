@@ -10,6 +10,7 @@ import java.time.LocalDateTime;
 import java.util.Collections;
 
 @Controller
+@ConditionalOnProjectEnabledAnnotation
 public class MainController {
 
     DefaultStudentService defaultStudentService;
@@ -24,6 +25,12 @@ public class MainController {
         StudentModel student = new StudentModel(1L,"Nazar","nazar",19, LocalDateTime.parse("2002-07-02T12:02"), Collections.emptySet());
         defaultStudentService.addStudent(student);
         System.out.println(defaultStudentService.findByEmail("nazar"));
+        return "main";
+    }
+
+    @GetMapping("/lol")
+    public String getMainPage1(){
+        System.out.println("sad face");
         return "main";
     }
 }
