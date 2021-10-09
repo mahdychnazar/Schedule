@@ -13,5 +13,7 @@ public interface DefaultCourseService {
 
     CourseModel findByTitle(String title);
 
+    CourseModel findByAuthor(String name);
+
     void addCourse(CourseModel course);
 }

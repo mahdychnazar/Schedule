@@ -63,6 +63,7 @@ public class ScheduleApplication implements CommandLineRunner {
 		courseService.addCourse(course2);
 		System.out.println(courseService.findById(1L));
 		System.out.println(courseService.findById(2L));
+		//System.out.println(courseService.findByAuthor("Kozerenko"));
 		System.out.println("***********************Success***********************");
 	}
 

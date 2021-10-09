@@ -31,6 +31,11 @@ public class CourseService implements DefaultCourseService{
     }
 
     @Override
+    public CourseModel findByAuthor(String name){
+        return courseRepo.findByAuthor(name);
+    }
+
+    @Override
     public void addCourse(CourseModel course) {
         courseRepo.addCourse(course);
     }

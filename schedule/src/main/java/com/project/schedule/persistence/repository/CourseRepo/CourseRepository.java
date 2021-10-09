@@ -32,6 +32,11 @@ public class CourseRepository implements DefaultCourseRepo{
     }
 
     @Override
+    public CourseModel findByAuthor(String name){
+        return MainMapper.courseToCourseModel(courseRepo.findByLector(name).get());
+    }
+
+    @Override
     public void addCourse(CourseModel course) {
         courseRepo.save(MainMapper.courseModelToCourse(course));
     }

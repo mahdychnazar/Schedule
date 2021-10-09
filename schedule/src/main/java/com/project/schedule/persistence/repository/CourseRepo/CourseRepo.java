@@ -10,4 +10,6 @@ import java.util.Optional;
 public interface CourseRepo extends JpaRepository<Course, Long> {
 
     Optional<Course> findByTitle(String title);
+
+    Optional<Course> findByLector(String name);
 }
