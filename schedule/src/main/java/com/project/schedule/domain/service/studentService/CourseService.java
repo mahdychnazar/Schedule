@@ -11,7 +11,6 @@ public class CourseService implements DefaultCourseService{
 
     DefaultCourseRepo courseRepo;
 
-
     public CourseService(DefaultCourseRepo courseRepo) {
         this.courseRepo = courseRepo;
     }
