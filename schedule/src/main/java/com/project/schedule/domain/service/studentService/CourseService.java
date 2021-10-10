@@ -31,7 +31,7 @@ public class CourseService implements DefaultCourseService{
     }
 
     @Override
-    public CourseModel findByAuthor(String name){
+    public Set<CourseModel> findByAuthor(String name) {
         return courseRepo.findByAuthor(name);
     }
 

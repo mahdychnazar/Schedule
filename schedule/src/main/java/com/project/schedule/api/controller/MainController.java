@@ -13,6 +13,7 @@ import java.util.Collections;
 @ConditionalOnProjectEnabledAnnotation
 public class MainController {
 
+    @Autowired
     DefaultStudentService defaultStudentService;
 
     @Autowired
@@ -22,7 +23,7 @@ public class MainController {
 
     @GetMapping("/")
     public String getMainPage(){
-        StudentModel student = new StudentModel(1L,"Nazar","nazar",19, LocalDateTime.parse("2002-07-02T12:02"), Collections.emptySet());
+        StudentModel student = new StudentModel(2L,"Nazar","nazar",19, LocalDateTime.parse("2002-07-02T12:02"), Collections.emptySet());
         defaultStudentService.addStudent(student);
         System.out.println(defaultStudentService.findByEmail("nazar"));
         return "main";

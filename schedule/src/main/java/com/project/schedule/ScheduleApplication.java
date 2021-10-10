@@ -9,25 +9,23 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.annotation.Bean;
 
 import java.time.LocalDateTime;
 import java.util.Collections;
-import java.util.HashSet;
 
 @SpringBootApplication
 public class ScheduleApplication implements CommandLineRunner {
-
-	@Autowired
-	StarterService starterService;
 
 	@Autowired
 	DefaultStudentService studentService;
 
 	DefaultCourseService courseService;
 
-	public ScheduleApplication(DefaultCourseService courseService) {
+	StarterService starterService;
+
+	public ScheduleApplication(DefaultCourseService courseService, StarterService starterService) {
 		this.courseService = courseService;
+		this.starterService = starterService;
 	}
 
 	public static void main(String[] args) {
@@ -38,7 +36,7 @@ public class ScheduleApplication implements CommandLineRunner {
 	public void run(String... args) throws Exception {
 		crudOperations();
 		addStudentToCourses();
-		starterService.starterFunc();
+
 	}
 
 	private void addStudentToCourses() {
@@ -51,25 +49,21 @@ public class ScheduleApplication implements CommandLineRunner {
 	}
 
 	private void crudOperations() {
-		System.out.println("***********************Test student com.project.customstarter.service***********************");
+		System.out.println("***********************Test student service***********************");
 		StudentModel student = new StudentModel(1L,"Yevhen","yevhen",12, LocalDateTime.parse("2002-06-21T12:02"), Collections.emptySet());
 		studentService.addStudent(student);
 		System.out.println(studentService.findByEmail("yevhen"));
 		System.out.println("***********************Success***********************");
-		System.out.println("***********************Test course com.project.customstarter.service***********************");
+		System.out.println("***********************Test course service***********************");
 		CourseModel course = new CourseModel(1L,"Math","Topology","Kozerenko", Collections.emptySet());
 		CourseModel course2 = new CourseModel(2L,"Math","Graph theory","Kozerenko", Collections.emptySet());
 		courseService.addCourse(course);
 		courseService.addCourse(course2);
 		System.out.println(courseService.findById(1L));
 		System.out.println(courseService.findById(2L));
-		//System.out.println(courseService.findByAuthor("Kozerenko"));
+		System.out.println(courseService.findByAuthor("Kozerenko"));
+		starterService.starterFunc();
 		System.out.println("***********************Success***********************");
-	}
-
-	@Bean
-	public StarterService starterService(){
-		return new CustomStarterService();
 	}
 
 }

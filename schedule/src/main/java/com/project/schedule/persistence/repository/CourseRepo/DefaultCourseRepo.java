@@ -15,5 +15,5 @@ public interface DefaultCourseRepo {
 
     void addCourse(CourseModel course);
 
-    CourseModel findByAuthor(String name);
+    Set<CourseModel> findByAuthor(String name);
 }
