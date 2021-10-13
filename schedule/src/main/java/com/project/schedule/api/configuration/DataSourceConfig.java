@@ -15,7 +15,7 @@ public class DataSourceConfig {
 
     DataSource dataSource;
 
-    @Value("${spring.datasource.driver-class-name}")
+    @Value("${spring.datasource.driverClassName}")
     String driverClassName;
     @Value("${spring.datasource.url}")
     String url;
@@ -27,18 +27,16 @@ public class DataSourceConfig {
     @Bean
     @Profile("dev")
     public DataSource getDevDataSource(){
-        DataSourceBuilder<?> dataSourceBuilder = DataSourceBuilder.create();
-        dataSourceBuilder.driverClassName(driverClassName);
-        dataSourceBuilder.url(url);
-        dataSourceBuilder.username(username);
-        dataSourceBuilder.password(password);
-        dataSource = dataSourceBuilder.build();
-        return dataSource;
+        return getDataSource();
     }
 
     @Bean
     @Profile("prod")
     public DataSource getProdDataSource(){
+        return getDataSource();
+    }
+
+    private DataSource getDataSource() {
         DataSourceBuilder<?> dataSourceBuilder = DataSourceBuilder.create();
         dataSourceBuilder.driverClassName(driverClassName);
         dataSourceBuilder.url(url);
