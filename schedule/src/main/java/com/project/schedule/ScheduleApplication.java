@@ -1,5 +1,10 @@
 package com.project.schedule;
 
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.ThreadContext;
+
 import com.project.customstarter.service.StarterService;
 import com.project.schedule.domain.model.CourseModel;
 import com.project.schedule.domain.model.StudentModel;
@@ -13,8 +18,11 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import java.time.LocalDateTime;
 import java.util.Collections;
 
+
+
 @SpringBootApplication
 public class ScheduleApplication implements CommandLineRunner {
+	private static final Logger logger = LogManager.getLogger(ScheduleApplication.class);
 
 	@Autowired
 	DefaultStudentService studentService;
@@ -36,6 +44,7 @@ public class ScheduleApplication implements CommandLineRunner {
 	public void run(String... args) throws Exception {
 		crudOperations();
 		addStudentToCourses();
+		ThreadContext.clearAll();
 
 	}
 
@@ -44,26 +53,26 @@ public class ScheduleApplication implements CommandLineRunner {
 		byId.getCourseModels().add(1L);
 		byId.getCourseModels().add(2L);
 		studentService.addStudent(byId);
-		System.out.println(studentService.getAllStudents());
-		System.out.println(courseService.getAllCourses());
+		logger.debug(studentService.getAllStudents());
+		logger.debug(courseService.getAllCourses());
 	}
 
 	private void crudOperations() {
-		System.out.println("***********************Test student service***********************");
+		logger.trace("***********************Test student service***********************");
 		StudentModel student = new StudentModel(1L,"Yevhen","yevhen",12, LocalDateTime.parse("2002-06-21T12:02"), Collections.emptySet());
 		studentService.addStudent(student);
-		System.out.println(studentService.findByEmail("yevhen"));
-		System.out.println("***********************Success***********************");
-		System.out.println("***********************Test course service***********************");
+		logger.trace(studentService.findByEmail("yevhen"));
+		logger.trace("***********************Success***********************");
+		logger.trace("***********************Test course service***********************");
 		CourseModel course = new CourseModel(1L,"Math","Topology","Kozerenko", Collections.emptySet());
 		CourseModel course2 = new CourseModel(2L,"Math","Graph theory","Kozerenko", Collections.emptySet());
 		courseService.addCourse(course);
 		courseService.addCourse(course2);
-		System.out.println(courseService.findById(1L));
-		System.out.println(courseService.findById(2L));
-		System.out.println(courseService.findByAuthor("Kozerenko"));
+		logger.trace(courseService.findById(1L));
+		logger.trace(courseService.findById(2L));
+		logger.trace(courseService.findByAuthor("Kozerenko"));
 		starterService.starterFunc();
-		System.out.println("***********************Success***********************");
+		logger.info("***********************Success***********************");
 	}
 
 }

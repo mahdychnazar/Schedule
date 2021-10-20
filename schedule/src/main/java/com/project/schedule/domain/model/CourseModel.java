@@ -2,6 +2,7 @@ package com.project.schedule.domain.model;
 
 import java.util.Set;
 
+
 public class CourseModel {
 
     Long id;
@@ -19,6 +20,7 @@ public class CourseModel {
         this.description = description;
         this.lector = lector;
         this.studentModelSet = studentModels;
+
     }
 
     public Long getId() {

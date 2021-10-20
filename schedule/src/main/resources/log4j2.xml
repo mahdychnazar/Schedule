@@ -1,19 +1,36 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<Configuration>
+<Configuration packages="com.project.schedule.Logging">
+    <Properties>
+        <Property name="LOG_PATTERN">
+            %d{yyyy-MM-dd HH:mm:ss.SSS} %5p ${hostName} --- [%15.15t] %-40.40c{1.} : %m%n%ex
+        </Property>
+    </Properties>
     <Appenders>
         <Console name = "Console" target = "SYSTEM_OUT">
-            <PatternLayout pattern = "%d{HH:mm:ss} [%t] %-5level %-60c{1.} - %msg %n"/>
+            <PatternLayout pattern = "${LOG_PATTERN}"/>
         </Console>
-
-        <File name = "File" filename = "Schedule.log">
-            <PatternLayout pattern = "%d{HH:mm:ss} [%t] %-5level %-60c{1.} - %msg %n"/>
-        </File>
+        <CustomAppender name = "myAppender">
+            <CustomLayout/>
+        </CustomAppender>
+        <RollingFile name="RollingFile"
+                     fileName="./logs/spring-boot-logger-log4j2.log"
+                     filePattern="./logs/$${date:yyyy-MM}/spring-boot-logger-log4j2-%d{-dd-MMMM-yyyy}-%i.log.gz">
+            <PatternLayout pattern = "${LOG_PATTERN}"/>
+            <Policies>
+<!--                 <OnStartupTriggeringPolicy />-->
+                <SizeBasedTriggeringPolicy
+                        size="10 MB" />
+<!--                <TimeBasedTriggeringPolicy />-->
+            </Policies>
+        </RollingFile>
     </Appenders>
 
     <Loggers>
         <Root level = "info">
-            <AppenderRef ref = "Console"/>
-            <AppenderRef ref = "File"/>
+            <AppenderRef ref = "RollingFile"/>
         </Root>
+        <Logger name = "com.project.schedule" level = "trace">
+            <AppenderRef ref = "myAppender"/>
+        </Logger>
     </Loggers>
 </Configuration>
