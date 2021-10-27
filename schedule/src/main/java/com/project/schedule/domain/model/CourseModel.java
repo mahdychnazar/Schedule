@@ -1,20 +1,25 @@
 package com.project.schedule.domain.model;
 
+import com.sun.istack.NotNull;
+
+import javax.validation.constraints.NotBlank;
 import java.util.Set;
 
 
 public class CourseModel {
 
     Long id;
+    @NotBlank(message = "Title can't be blank.")
     String title;
     String description;
+    @NotBlank(message = "Lector can't be blank.")
     String lector;
     Set<Long> studentModelSet;
 
     public CourseModel() {
     }
 
-    public CourseModel(Long id, String title, String description, String lector, Set<Long> studentModels) {
+    public CourseModel(Long id, @NotBlank(message = "Title can't be blank.") String title, String description, @NotBlank(message = "Lector can't be blank.") String lector, Set<Long> studentModels) {
         this.id = id;
         this.title = title;
         this.description = description;
@@ -31,11 +36,12 @@ public class CourseModel {
         this.id = id;
     }
 
+    @NotBlank(message = "Title can't be blank.")
     public String getTitle() {
         return title;
     }
 
-    public void setTitle(String title) {
+    public void setTitle(@NotBlank(message = "Title can't be blank.") String title) {
         this.title = title;
     }
 
@@ -47,11 +53,12 @@ public class CourseModel {
         this.description = description;
     }
 
+    @NotBlank(message = "Lector can't be blank.")
     public String getLector() {
         return lector;
     }
 
-    public void setLector(String lector) {
+    public void setLector(@NotBlank(message = "Lector can't be blank.") String lector) {
         this.lector = lector;
     }
 

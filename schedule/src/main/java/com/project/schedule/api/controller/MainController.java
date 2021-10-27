@@ -13,7 +13,6 @@ import java.util.Collections;
 @ConditionalOnProjectEnabledAnnotation
 public class MainController {
 
-    @Autowired
     DefaultStudentService defaultStudentService;
 
     @Autowired

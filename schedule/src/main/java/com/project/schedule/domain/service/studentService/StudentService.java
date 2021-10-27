@@ -35,4 +35,9 @@ public class StudentService implements DefaultStudentService{
     public void addStudent(StudentModel student) {
         studentRepo.addStudent(student);
     }
+
+    @Override
+    public void deleteStudentById(long id){
+        studentRepo.deleteStudentById(id);
+    }
 }

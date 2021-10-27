@@ -13,4 +13,6 @@ public interface DefaultStudentRepo {
     StudentModel findByEmail(String email);
 
     void addStudent(StudentModel student);
+
+    void deleteStudentById(long id);
 }

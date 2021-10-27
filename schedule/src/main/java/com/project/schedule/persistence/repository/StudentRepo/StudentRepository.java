@@ -36,4 +36,9 @@ public class StudentRepository implements DefaultStudentRepo{
     public void addStudent(StudentModel student) {
         studentRepo.save(MainMapper.studentModelToStudent(student));
     }
+
+    @Override
+    public void deleteStudentById(long id) {
+        studentRepo.deleteById(id);
+    }
 }
