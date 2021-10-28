@@ -8,7 +8,9 @@ import com.project.schedule.persistence.repository.entity.Course;
 import com.project.schedule.persistence.repository.entity.Student;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Component
@@ -55,7 +57,7 @@ public class MainMapper {
     private static Set<Course> longModelToCourses(Set<Long> courseModels) {
         Set<Course> courses  = new HashSet<>();
         for (Long id : courseModels){
-            courses.add(courseModelToCourse(courseRepo.findById(id)));
+            courses.add(courseRepo.findById(id));
         }
         return courses;
     }
@@ -84,8 +86,8 @@ public class MainMapper {
         return courses;
     }
 
-    public static Set<CourseModel> coursesToCoursesModel(Set<Course> courses) {
-        Set<CourseModel> coursesModel = new HashSet<>();
+    public static List<CourseModel> coursesToCoursesModel(List<Course> courses) {
+        List<CourseModel> coursesModel = new ArrayList<>();
         for (Course course : courses){
             coursesModel.add(courseToCourseModel(course));
         }
@@ -102,8 +104,8 @@ public class MainMapper {
         return courseModel;
     }
 
-    private static Set<Long> studentsToLongModel(Set<Student> studentSet) {
-        Set<Long> studentModels  = new HashSet<>();
+    private static List<Long> studentsToLongModel(List<Student> studentSet) {
+        List<Long> studentModels  = new ArrayList<>();
         for (Student student : studentSet){
             studentModels.add(student.getId());
         }
@@ -120,8 +122,8 @@ public class MainMapper {
         return course;
     }
 
-    private static Set<Student> LongToStudents(Set<Long> studentModelSet) {
-        Set<Student> students  = new HashSet<>();
+    private static List<Student> LongToStudents(List<Long> studentModelSet) {
+        List<Student> students  = new ArrayList<>();
         for (Long id : studentModelSet){
             students.add(studentModelToStudent(studentRepo.findById(id)));
         }

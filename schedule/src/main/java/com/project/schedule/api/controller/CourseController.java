@@ -8,6 +8,7 @@ import com.project.schedule.exceptions.UserNotFoundException;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.List;
 import java.util.Set;
 
 @RestController
@@ -21,7 +22,7 @@ public class CourseController {
 
     @GetMapping("/courses-info")
     public Object getCourses(){
-        Set<CourseModel> allCourses = defaultCourseService.getAllCourses();
+        List<CourseModel> allCourses = defaultCourseService.getAllCourses();
         System.out.println(allCourses);
         return allCourses;
     }

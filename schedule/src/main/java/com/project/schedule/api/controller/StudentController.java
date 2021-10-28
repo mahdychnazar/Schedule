@@ -32,6 +32,12 @@ public class StudentController {
         return defaultStudentService.findById(studentModel.getId());
     }
 
+    @GetMapping("/students/{id}")
+    public StudentModel getStudent(@PathVariable String id){
+        return defaultStudentService.findById(Long.parseLong(id));
+    }
+
+
     @PutMapping("/update/student/{id}")
     public StudentModel updateStudent (@PathVariable(name = "id") String id) throws UserNotFoundException {
         try {

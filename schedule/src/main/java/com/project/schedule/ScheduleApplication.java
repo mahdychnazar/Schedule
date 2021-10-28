@@ -64,8 +64,8 @@ public class ScheduleApplication implements CommandLineRunner {
 		logger.trace(studentService.findByEmail("yevhen"));
 		logger.trace("***********************Success***********************");
 		logger.trace("***********************Test course service***********************");
-		CourseModel course = new CourseModel(1L,"Math","Topology","Kozerenko", Collections.emptySet());
-		CourseModel course2 = new CourseModel(2L,"Math","Graph theory","Kozerenko", Collections.emptySet());
+		CourseModel course = new CourseModel(1L,"Math","Topology","Kozerenko", Collections.emptyList());
+		CourseModel course2 = new CourseModel(2L,"Math","Graph theory","Kozerenko", Collections.emptyList());
 		courseService.addCourse(course);
 		courseService.addCourse(course2);
 		logger.trace(courseService.findById(1L));

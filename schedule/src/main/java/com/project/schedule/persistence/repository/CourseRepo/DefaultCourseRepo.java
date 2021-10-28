@@ -2,18 +2,20 @@ package com.project.schedule.persistence.repository.CourseRepo;
 
 
 import com.project.schedule.domain.model.CourseModel;
+import com.project.schedule.persistence.repository.entity.Course;
 
+import java.util.List;
 import java.util.Set;
 
 public interface DefaultCourseRepo {
 
-    Set<CourseModel> getAllCourses();
+    List<Course> getAllCourses();
 
-    CourseModel findById(long id);
+    Course findById(long id);
 
-    CourseModel findByTitle(String title);
+    Course findByTitle(String title);
 
     void addCourse(CourseModel course);
 
-    Set<CourseModel> findByAuthor(String name);
+    List<Course> findByAuthor(String name);
 }

@@ -1,10 +1,13 @@
 package com.project.schedule.domain.service.studentService;
 
 import com.project.schedule.domain.model.CourseModel;
+import com.project.schedule.persistence.mapper.MainMapper;
 import com.project.schedule.persistence.repository.CourseRepo.DefaultCourseRepo;
+import org.jboss.jandex.Main;
 import org.springframework.stereotype.Service;
 
 
+import java.util.List;
 import java.util.Set;
 
 @Service
@@ -17,23 +20,23 @@ public class CourseService implements DefaultCourseService{
     }
 
     @Override
-    public Set<CourseModel> getAllCourses() {
-        return courseRepo.getAllCourses();
+    public List<CourseModel> getAllCourses() {
+        return MainMapper.coursesToCoursesModel(courseRepo.getAllCourses());
     }
 
     @Override
     public CourseModel findById(long id) {
-        return courseRepo.findById(id);
+        return MainMapper.courseToCourseModel(courseRepo.findById(id));
     }
 
     @Override
     public CourseModel findByTitle(String title) {
-        return courseRepo.findByTitle(title);
+        return MainMapper.courseToCourseModel(courseRepo.findByTitle(title));
     }
 
     @Override
-    public Set<CourseModel> findByAuthor(String name) {
-        return courseRepo.findByAuthor(name);
+    public List<CourseModel> findByAuthor(String name) {
+        return MainMapper.coursesToCoursesModel(courseRepo.findByAuthor(name));
     }
 
     @Override

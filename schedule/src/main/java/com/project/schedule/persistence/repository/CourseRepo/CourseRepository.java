@@ -2,9 +2,11 @@ package com.project.schedule.persistence.repository.CourseRepo;
 
 import com.project.schedule.domain.model.CourseModel;
 import com.project.schedule.persistence.mapper.MainMapper;
+import com.project.schedule.persistence.repository.entity.Course;
 import org.springframework.stereotype.Repository;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -20,18 +22,18 @@ public class CourseRepository implements DefaultCourseRepo{
     }
 
     @Override
-    public Set<CourseModel> getAllCourses() {
-        return MainMapper.coursesToCoursesModel(new HashSet<>(courseRepo.findAll()));
+    public List<Course> getAllCourses() {
+        return courseRepo.findAll();
     }
 
     @Override
-    public CourseModel findById(long id) {
-        return MainMapper.courseToCourseModel(courseRepo.findById(id).get());
+    public Course findById(long id) {
+        return courseRepo.findById(id).get();
     }
 
     @Override
-    public CourseModel findByTitle(String title) {
-        return MainMapper.courseToCourseModel(courseRepo.findByTitle(title).get());
+    public Course findByTitle(String title) {
+        return courseRepo.findByTitle(title).get();
     }
 
     @Override
@@ -40,7 +42,7 @@ public class CourseRepository implements DefaultCourseRepo{
     }
 
     @Override
-    public Set<CourseModel> findByAuthor(String name) {
-        return MainMapper.coursesToCoursesModel(courseRepo.findByLector(name));
+    public List<Course> findByAuthor(String name) {
+        return courseRepo.findByLector(name);
     }
 }

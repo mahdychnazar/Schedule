@@ -1,7 +1,9 @@
 package com.project.schedule.persistence.repository.entity;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -22,7 +24,7 @@ public class Course {
     String lector;
 
     @ManyToMany(mappedBy = "courses", fetch = FetchType.EAGER)
-    Set<Student> studentSet = new HashSet<>();
+    List<Student> studentSet = new ArrayList<>();
 
     public Course(){
 
@@ -67,11 +69,11 @@ public class Course {
         this.lector = lector;
     }
 
-    public Set<Student> getStudentSet() {
+    public List<Student> getStudentSet() {
         return studentSet;
     }
 
-    public void setStudentSet(Set<Student> studentSet) {
+    public void setStudentSet(List<Student> studentSet) {
         this.studentSet = studentSet;
     }
 
