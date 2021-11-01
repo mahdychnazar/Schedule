@@ -1,15 +1,17 @@
 package com.project.schedule.api.controller;
 
 import com.project.schedule.domain.model.CourseModel;
-import com.project.schedule.domain.model.StudentModel;
 import com.project.schedule.domain.service.studentService.DefaultCourseService;
 import com.project.schedule.exceptions.CourseNotFoundException;
-import com.project.schedule.exceptions.UserNotFoundException;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
-import java.util.Set;
 
 @RestController
 public class CourseController {
@@ -20,19 +22,52 @@ public class CourseController {
         this.defaultCourseService = defaultCourseService;
     }
 
+    @Operation(summary = "Get all courses")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Found courses",
+                    content = { @Content(mediaType = "application/json",
+                            schema = @Schema(implementation = List.class)) })})
     @GetMapping("/courses-info")
     public Object getCourses(){
         List<CourseModel> allCourses = defaultCourseService.getAllCourses();
         System.out.println(allCourses);
         return allCourses;
     }
+    @Operation(summary = "Get a course by its id")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Found the course",
+                    content = { @Content(mediaType = "application/json",
+                            schema = @Schema(implementation = CourseModel.class)) }),
+            @ApiResponse(responseCode = "400", description = "Invalid id supplied",
+                    content = @Content),
+            @ApiResponse(responseCode = "404", description = "Course not found",
+                    content = @Content) })
+    @GetMapping("/courses/{id}")
+    public CourseModel getCourse(@PathVariable String id){
+        return defaultCourseService.findById(Long.parseLong(id));
+    }
 
+    @Operation(summary = "Create course")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Created course",
+                    content = { @Content(mediaType = "application/json",
+                            schema = @Schema(implementation = CourseModel.class)) }),
+            @ApiResponse(responseCode = "400", description = "Invalid course",
+                    content = @Content)})
     @PostMapping("/createCourse")
     public CourseModel createCourse(@Valid CourseModel courseModel){
         defaultCourseService.addCourse(courseModel);
         return defaultCourseService.findById(courseModel.getId());
     }
-
+    @Operation(summary = "Update a course by its id")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Updated the course",
+                    content = { @Content(mediaType = "application/json",
+                            schema = @Schema(implementation = CourseModel.class)) }),
+            @ApiResponse(responseCode = "400", description = "Invalid id supplied",
+                    content = @Content),
+            @ApiResponse(responseCode = "404", description = "Course not found",
+                    content = @Content) })
     @PutMapping("/update/course/{id}")
     public CourseModel updateCourse (@PathVariable(name = "id") String id) throws CourseNotFoundException {
         try {
