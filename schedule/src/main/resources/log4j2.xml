@@ -6,11 +6,20 @@
         </Property>
     </Properties>
     <Appenders>
-        <Console name = "Console" target = "SYSTEM_OUT">
-            <PatternLayout pattern = "${LOG_PATTERN}"/>
+        <Console name = "checkStudentAdding" target = "SYSTEM_OUT">
+            <PatternLayout  pattern="%-4r [%t] %5p %c{1} - %m - student.id=%X{student.id} student.name=%X{student.name}%n"/>
+            <MarkerFilter marker="checkStudent" onMatch="ACCEPT" onMismatch="DENY" />
+            >
+        </Console>
+        <Console name = "checkCourseAdding" target = "SYSTEM_OUT">
+            <PatternLayout  pattern="%-4r [%t] %5p %c{1} - %m - course.id=%X{course.id} course.name=%X{course.name}%n"/>
+            <MarkerFilter marker="checkCourse" onMatch="ACCEPT" onMismatch="DENY" />
+            >
         </Console>
         <CustomAppender name = "myAppender">
             <CustomLayout/>
+            <MarkerFilter marker="GENERAL" onMatch="ACCEPT" onMismatch="DENY" />
+            >
         </CustomAppender>
         <RollingFile name="RollingFile"
                      fileName="./logs/spring-boot-logger-log4j2.log"
@@ -28,9 +37,12 @@
     <Loggers>
         <Root level = "info">
             <AppenderRef ref = "RollingFile"/>
+            <AppenderRef ref = "checkStudentAdding"/>
+            <AppenderRef ref = "checkCourseAdding"/>
         </Root>
         <Logger name = "com.project.schedule" level = "trace">
             <AppenderRef ref = "myAppender"/>
+
         </Logger>
     </Loggers>
 </Configuration>

@@ -1,9 +1,7 @@
 package com.project.schedule;
 
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-import org.apache.logging.log4j.ThreadContext;
+import org.apache.logging.log4j.*;
 
 import com.project.customstarter.service.StarterService;
 import com.project.schedule.domain.model.CourseModel;
@@ -23,6 +21,8 @@ import java.util.Collections;
 @SpringBootApplication
 public class ScheduleApplication implements CommandLineRunner {
 	private static final Logger logger = LogManager.getLogger(ScheduleApplication.class);
+	private static final Marker ADMIN_USER = MarkerManager.getMarker("ADMIN");
+	private static final Marker GENERAL_USER = MarkerManager.getMarker("GENERAL");;
 
 	@Autowired
 	DefaultStudentService studentService;
@@ -44,7 +44,6 @@ public class ScheduleApplication implements CommandLineRunner {
 	public void run(String... args) throws Exception {
 		crudOperations();
 		addStudentToCourses();
-		ThreadContext.clearAll();
 
 	}
 
@@ -58,21 +57,21 @@ public class ScheduleApplication implements CommandLineRunner {
 	}
 
 	private void crudOperations() {
-		logger.trace("***********************Test student service***********************");
+		logger.trace(GENERAL_USER,"***********************Test student service***********************");
 		StudentModel student = new StudentModel(1L,"Yevhen","yevhen",12, LocalDateTime.parse("2002-06-21T12:02"), Collections.emptySet());
 		studentService.addStudent(student);
-		logger.trace(studentService.findByEmail("yevhen"));
-		logger.trace("***********************Success***********************");
-		logger.trace("***********************Test course service***********************");
+		logger.trace( ADMIN_USER,studentService.findByEmail("yevhen"));
+		logger.trace(GENERAL_USER,"***********************Success***********************");
+		logger.trace(GENERAL_USER,"***********************Test course service***********************");
 		CourseModel course = new CourseModel(1L,"Math","Topology","Kozerenko", Collections.emptyList());
 		CourseModel course2 = new CourseModel(2L,"Math","Graph theory","Kozerenko", Collections.emptyList());
 		courseService.addCourse(course);
 		courseService.addCourse(course2);
-		logger.trace(courseService.findById(1L));
-		logger.trace(courseService.findById(2L));
-		logger.trace(courseService.findByAuthor("Kozerenko"));
+		logger.trace( ADMIN_USER,courseService.findById(1L));
+		logger.trace( ADMIN_USER,courseService.findById(2L));
+		logger.trace( ADMIN_USER,courseService.findByAuthor("Kozerenko"));
 		starterService.starterFunc();
-		logger.info("***********************Success***********************");
+		logger.info(GENERAL_USER,"***********************Success***********************");
 	}
 
 }

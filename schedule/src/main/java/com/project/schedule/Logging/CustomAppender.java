@@ -10,17 +10,13 @@ import org.apache.logging.log4j.core.layout.PatternLayout;
 
 @Plugin(name="CustomAppender", category="Core", elementType="appender", printObject=true)
 public final class CustomAppender extends AbstractAppender {
-
-    private final ReadWriteLock rwLock = new ReentrantReadWriteLock();
-    private final Lock readLock = rwLock.readLock();
-
     protected CustomAppender(String name, Filter filter,
                              Layout<? extends Serializable> layout, final boolean ignoreExceptions) {
         super(name, filter, layout, ignoreExceptions);
     }
     @Override
     public void append(LogEvent event) {
-        readLock.lock();
+
         try {
             final byte[] bytes = getLayout().toByteArray(event);
             System.out.write(bytes);
@@ -28,8 +24,6 @@ public final class CustomAppender extends AbstractAppender {
             if (!ignoreExceptions()) {
                 throw new AppenderLoggingException(ex);
             }
-        } finally {
-            readLock.unlock();
         }
     }
     @PluginFactory
