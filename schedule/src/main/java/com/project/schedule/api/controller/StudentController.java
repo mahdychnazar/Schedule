@@ -13,6 +13,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.Collections;
 import java.util.List;
 
 @RestController
@@ -45,6 +46,9 @@ public class StudentController {
                     content = @Content)})
     @PostMapping("/create/student")
     public StudentModel createStudent(@Valid StudentModel studentModel){
+        if(studentModel.getCourseModels() == null){
+           studentModel.setCourseModels(Collections.emptySet());
+        }
         defaultStudentService.addStudent(studentModel);
         return defaultStudentService.findById(studentModel.getId());
     }

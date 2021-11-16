@@ -13,9 +13,13 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+import javax.validation.ConstraintViolation;
+import javax.validation.Validation;
+import javax.validation.Validator;
+import javax.validation.ValidatorFactory;
 import java.time.LocalDateTime;
 import java.util.Collections;
-
+import java.util.Set;
 
 
 @SpringBootApplication
@@ -59,7 +63,13 @@ public class ScheduleApplication implements CommandLineRunner {
 
 	private void crudOperations() {
 		logger.trace(GENERAL_USER,"***********************Test student service***********************");
-		StudentModel student = new StudentModel(1L,"Yevhen","yevhen",12, LocalDateTime.parse("2002-06-21T12:02"), Collections.emptySet());
+		StudentModel student = new StudentModel(1L,"Yevhen","yevhen",12, "2002-06-21T12:02", Collections.emptySet());
+		ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
+		Validator validator = factory.getValidator();
+		Set<ConstraintViolation<StudentModel>> violations = validator.validate(student);
+		for (ConstraintViolation<StudentModel> violation : violations) {
+			logger.error(violation.getMessage());
+		}
 		studentService.addStudent(student);
 		logger.trace( ADMIN_USER,studentService.findByEmail("yevhen"));
 		logger.trace(GENERAL_USER,"***********************Success***********************");

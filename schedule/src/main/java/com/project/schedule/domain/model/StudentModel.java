@@ -19,14 +19,13 @@ public class StudentModel {
     String email;
     @Min(0)
     int age;
-    @NotBlank(message = "Birth date can't be blank.")
-    LocalDateTime birthDate;
+    String birthDate;
     Set<Long> courseModels;
 
     public StudentModel() {
     }
 
-    public StudentModel(@NotNull Long id, @NotBlank(message = "Name can't be blank.") String name, @Email(message = "Invalid email.") String email, @Min(0) int age, @NotBlank(message = "Birth date can't be blank.") LocalDateTime birthDate, Set<Long> courseModels) {
+    public StudentModel(@NotNull Long id, @NotBlank(message = "Name can't be blank.") String name, @Email(message = "Invalid email.") String email, @Min(0) int age, String birthDate, Set<Long> courseModels) {
         this.id = id;
         this.name = name;
         this.email = email;
@@ -62,12 +61,11 @@ public class StudentModel {
         this.age = age;
     }
 
-    @NotBlank(message = "Birth date can't be blank.")
-    public LocalDateTime getBirthDate() {
+    public String getBirthDate() {
         return birthDate;
     }
 
-    public void setBirthDate(@NotBlank(message = "Birth date can't be blank.") LocalDateTime birthDate) {
+    public void setBirthDate(String birthDate) {
         this.birthDate = birthDate;
     }
 

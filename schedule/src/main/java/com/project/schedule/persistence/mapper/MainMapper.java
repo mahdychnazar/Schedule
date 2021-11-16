@@ -8,6 +8,7 @@ import com.project.schedule.persistence.repository.entity.Course;
 import com.project.schedule.persistence.repository.entity.Student;
 import org.springframework.stereotype.Component;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -30,7 +31,7 @@ public class MainMapper {
             studentModel.setName(student.getName());
             studentModel.setAge(student.getAge());
             studentModel.setEmail(student.getEmail());
-            studentModel.setBirthDate(student.getBirthDate());
+            studentModel.setBirthDate(student.getBirthDate().toString());
             studentModel.setCourseModels(coursesToLongSet(student.getCourses()));
             return studentModel;
     }
@@ -49,7 +50,7 @@ public class MainMapper {
         student.setName(studentModel.getName());
         student.setAge(studentModel.getAge());
         student.setEmail(studentModel.getEmail());
-        student.setBirthDate(studentModel.getBirthDate());
+        student.setBirthDate(LocalDateTime.parse(studentModel.getBirthDate()));
         student.setCourses(longModelToCourses(studentModel.getCourseModels()));
         return student;
     }

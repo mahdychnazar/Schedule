@@ -11,6 +11,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.Collections;
 import java.util.List;
 
 @RestController
@@ -56,6 +57,9 @@ public class CourseController {
                     content = @Content)})
     @PostMapping("/create/course")
     public CourseModel createCourse(@Valid CourseModel courseModel){
+        if (courseModel.getStudentModelSet() == null){
+            courseModel.setStudentModelSet(Collections.emptyList());
+        }
         defaultCourseService.addCourse(courseModel);
         return defaultCourseService.findById(courseModel.getId());
     }
