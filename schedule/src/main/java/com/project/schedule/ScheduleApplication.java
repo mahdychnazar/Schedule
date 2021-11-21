@@ -42,6 +42,7 @@ public class ScheduleApplication implements CommandLineRunner {
 
 	@Override
 	public void run(String... args) throws Exception {
+
 		crudOperations();
 		addStudentToCourses();
 

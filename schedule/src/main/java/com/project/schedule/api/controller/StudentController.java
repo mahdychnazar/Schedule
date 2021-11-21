@@ -29,7 +29,7 @@ public class StudentController {
             @ApiResponse(responseCode = "200", description = "Returned all students",
                     content = { @Content(mediaType = "application/json",
                             schema = @Schema(implementation = List.class)) }) })
-    @GetMapping("/students-info")
+    @GetMapping("/students/info")
     public Object getStudents(){
         List<StudentModel> allStudents = defaultStudentService.getAllStudents();
         System.out.println(allStudents);
@@ -43,7 +43,7 @@ public class StudentController {
                             schema = @Schema(implementation = StudentModel.class)) }),
             @ApiResponse(responseCode = "400", description = "Invalid students",
                     content = @Content)})
-    @PostMapping("/createStudent")
+    @PostMapping("/create/student")
     public StudentModel createStudent(@Valid StudentModel studentModel){
         defaultStudentService.addStudent(studentModel);
         return defaultStudentService.findById(studentModel.getId());

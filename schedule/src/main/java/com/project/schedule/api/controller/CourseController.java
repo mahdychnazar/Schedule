@@ -27,7 +27,7 @@ public class CourseController {
             @ApiResponse(responseCode = "200", description = "Found courses",
                     content = { @Content(mediaType = "application/json",
                             schema = @Schema(implementation = List.class)) })})
-    @GetMapping("/courses-info")
+    @GetMapping("/courses/info")
     public Object getCourses(){
         List<CourseModel> allCourses = defaultCourseService.getAllCourses();
         System.out.println(allCourses);
@@ -54,7 +54,7 @@ public class CourseController {
                             schema = @Schema(implementation = CourseModel.class)) }),
             @ApiResponse(responseCode = "400", description = "Invalid course",
                     content = @Content)})
-    @PostMapping("/createCourse")
+    @PostMapping("/create/course")
     public CourseModel createCourse(@Valid CourseModel courseModel){
         defaultCourseService.addCourse(courseModel);
         return defaultCourseService.findById(courseModel.getId());

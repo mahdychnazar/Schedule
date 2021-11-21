@@ -5,19 +5,35 @@ import javax.persistence.*;
 import java.util.Set;
 
 @Entity
-@Table(name = "usr")
+@Table(name = "usr", indexes = {
+        @Index(name = "idx_user_id", columnList = "id")
+})
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+    @Column
     private String username;
+    @Column
     private String password;
+    @Column
     private boolean active;
 
     @ElementCollection(targetClass = Role.class, fetch = FetchType.EAGER)
     @CollectionTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"))
     @Enumerated(EnumType.STRING)
     private Set<Role> roles;
+
+    public User() {
+    }
+
+    public User(Long id, String username, String password, boolean active, Set<Role> roles) {
+        this.id = id;
+        this.username = username;
+        this.password = password;
+        this.active = active;
+        this.roles = roles;
+    }
 
     public Long getId() {
         return id;
@@ -57,5 +73,16 @@ public class User {
 
     public void setRoles(Set<Role> roles) {
         this.roles = roles;
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", username='" + username + '\'' +
+                ", password='" + password + '\'' +
+                ", active=" + active +
+                ", roles=" + roles +
+                '}';
     }
 }

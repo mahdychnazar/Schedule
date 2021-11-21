@@ -1,6 +1,7 @@
 drop table if exists students;
 drop table if exists courses;
 drop table if exists students_courses;
+drop table if exists usr;
 -- auto-generated definition
 create table students
 (
@@ -33,6 +34,4 @@ create table students_courses
 
 create index students_courses_courses_id_fk
     on students_courses (course_id);
-
-
 

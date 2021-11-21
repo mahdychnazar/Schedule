@@ -16,7 +16,7 @@
             <MarkerFilter marker="checkCourse" onMatch="ACCEPT" onMismatch="DENY" />
             >
         </Console>
-        <Console name = "checkCourseAdding" target = "SYSTEM_OUT">
+        <Console name = "Console" target = "SYSTEM_OUT">
             <PatternLayout  pattern="%-4r [%t] %5p %c{1} - %m %n"/>
             >
         </Console>
@@ -43,6 +43,7 @@
             <AppenderRef ref = "RollingFile"/>
             <AppenderRef ref = "checkStudentAdding"/>
             <AppenderRef ref = "checkCourseAdding"/>
+            <AppenderRef ref = "Console"/>
         </Root>
         <Logger name = "com.project.schedule" level = "trace">
             <AppenderRef ref = "myAppender"/>
