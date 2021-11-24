@@ -4,7 +4,9 @@ import com.project.schedule.domain.model.StudentModel;
 import com.project.schedule.domain.service.studentService.DefaultStudentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.time.LocalDateTime;
 import java.util.Collections;
@@ -26,6 +28,13 @@ public class MainController {
         defaultStudentService.addStudent(student);
         System.out.println(defaultStudentService.findByEmail("nazar"));
         return "main";
+    }
+
+    @GetMapping("/home")
+    public String home(@RequestParam(required = false) String login, Model model) {
+        System.out.println("login is: " + login);
+        model.addAttribute("login", login);
+        return "home_page";
     }
 
     @GetMapping("/lol")

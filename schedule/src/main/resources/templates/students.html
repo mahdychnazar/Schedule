@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>Students</title>
+</head>
+<tbody>
+<!--    <tr th:each="Student: ${students}">-->
+<!--        <td th:text="${students.id}" />-->
+<!--        <td th:text="${students.name}" />-->
+<!--        <td th:text="${students.email}" />-->
+<!--        <td th:text="${students.age}" />-->
+<!--        <td th:text="${students.birthDate}" />-->
+<!--    </tr>-->
+
+    <tr th:if="${students.empty}">
+        <td colspan="2"> No Students Available </td>
+    </tr>
+    <tr th:each="student : ${students}">
+        <td><span th:text="${students.id}"> Id </span></td>
+        <td><span th:text="${students.name}"> Name </span></td>
+        <td><span th:text="${students.email}"> Email </span></td>
+        <td><span th:text="${students.age}"> Age </span></td>
+        <td><span th:text="${students.birthDate}"> BirthDate </span></td>
+    </tr>
+</tbody>
+</html>

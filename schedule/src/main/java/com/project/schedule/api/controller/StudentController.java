@@ -1,5 +1,6 @@
 package com.project.schedule.api.controller;
 
+import com.project.schedule.Greeting;
 import com.project.schedule.domain.model.CourseModel;
 import com.project.schedule.domain.model.StudentModel;
 import com.project.schedule.domain.service.studentService.DefaultStudentService;
@@ -10,6 +11,7 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -25,16 +27,17 @@ public class StudentController {
     public StudentController(DefaultStudentService defaultCourseService) {
         this.defaultStudentService = defaultCourseService;
     }
+
     @Operation(summary = "Get all students")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Returned all students",
                     content = { @Content(mediaType = "application/json",
                             schema = @Schema(implementation = List.class)) }) })
     @GetMapping("/students/info")
-    public Object getStudents(){
+    public Object getStudents(Model model){
         List<StudentModel> allStudents = defaultStudentService.getAllStudents();
-        System.out.println(allStudents);
-        return allStudents;
+        model.addAttribute("students", allStudents.toString());
+        return "students";
     }
 
     @Operation(summary = "Create student")
