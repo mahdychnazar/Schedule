@@ -1,4 +1,4 @@
-package com.project.schedule;
+package com.project.schedule.domain.model;
 
 public class Greeting {
 

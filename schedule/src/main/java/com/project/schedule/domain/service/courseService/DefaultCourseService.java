@@ -1,4 +1,4 @@
-package com.project.schedule.domain.service.studentService;
+package com.project.schedule.domain.service.courseService;
 
 import com.project.schedule.domain.model.CourseModel;
 

@@ -1,6 +1,6 @@
 package com.project.schedule.api.controller;
 
-import com.project.schedule.Greeting;
+import com.project.schedule.domain.model.Greeting;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;

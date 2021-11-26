@@ -2,12 +2,11 @@ package com.project.schedule.api.controller;
 
 
 import com.project.schedule.ScheduleApplication;
-import com.project.schedule.persistence.repository.UserRepo.UserRepo;
+import com.project.schedule.persistence.repository.UserRepo.DefaultUserRepo;
 import com.project.schedule.persistence.repository.entity.Role;
 import com.project.schedule.persistence.repository.entity.User;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,12 +18,17 @@ import java.util.Map;
 @Controller
 public class RegistrationController {
 
-    @Autowired
-    private PasswordEncoder passwordEncoder;
+
+    private final PasswordEncoder passwordEncoder;
 
     private static final Logger logger = LogManager.getLogger(ScheduleApplication.class);
-    @Autowired
-    private UserRepo userRepo;
+
+    DefaultUserRepo userRepo;
+
+    public RegistrationController(PasswordEncoder passwordEncoder, DefaultUserRepo userRepo) {
+        this.passwordEncoder = passwordEncoder;
+        this.userRepo = userRepo;
+    }
 
     @GetMapping("/registration")
     public String registration() {
@@ -42,7 +46,7 @@ public class RegistrationController {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         user.setActive(true);
         user.setRoles(Collections.singleton(Role.USER));
-        userRepo.save(user);
+        userRepo.addUser(user);
         logger.info(userRepo.findByUsername(user.getUsername()));
 
         return "redirect:/login";

@@ -1,23 +1,28 @@
 package com.project.schedule.api.controller;
 
 import com.project.schedule.domain.model.CourseModel;
-import com.project.schedule.domain.service.studentService.DefaultCourseService;
+import com.project.schedule.domain.service.courseService.DefaultCourseService;
 import com.project.schedule.exceptions.CourseNotFoundException;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.Collections;
 import java.util.List;
 
-@RestController
+@Controller
 public class CourseController {
 
     DefaultCourseService defaultCourseService;
+    private static final Logger logger = LogManager.getLogger(CourseController.class);
 
     public CourseController(DefaultCourseService defaultCourseService) {
         this.defaultCourseService = defaultCourseService;
@@ -29,10 +34,11 @@ public class CourseController {
                     content = { @Content(mediaType = "application/json",
                             schema = @Schema(implementation = List.class)) })})
     @GetMapping("/courses/info")
-    public Object getCourses(){
+    public Object getCourses(Model model){
         List<CourseModel> allCourses = defaultCourseService.getAllCourses();
-        System.out.println(allCourses);
-        return allCourses;
+        logger.info(allCourses);
+        model.addAttribute("courses", allCourses);
+        return "courses";
     }
     @Operation(summary = "Get a course by its id")
     @ApiResponses(value = {

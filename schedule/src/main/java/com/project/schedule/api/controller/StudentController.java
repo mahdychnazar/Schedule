@@ -1,6 +1,5 @@
 package com.project.schedule.api.controller;
 
-import com.project.schedule.Greeting;
 import com.project.schedule.domain.model.CourseModel;
 import com.project.schedule.domain.model.StudentModel;
 import com.project.schedule.domain.service.studentService.DefaultStudentService;
@@ -11,6 +10,7 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,7 +18,7 @@ import javax.validation.Valid;
 import java.util.Collections;
 import java.util.List;
 
-@RestController
+@Controller
 @Tag(name = "Student controller", description = "default")
 public class StudentController {
 
@@ -34,9 +34,9 @@ public class StudentController {
                     content = { @Content(mediaType = "application/json",
                             schema = @Schema(implementation = List.class)) }) })
     @GetMapping("/students/info")
-    public Object getStudents(Model model){
+    public String getStudents(Model model){
         List<StudentModel> allStudents = defaultStudentService.getAllStudents();
-        model.addAttribute("students", allStudents.toString());
+        model.addAttribute("students", allStudents);
         return "students";
     }
 
@@ -50,7 +50,7 @@ public class StudentController {
     @PostMapping("/create/student")
     public StudentModel createStudent(@Valid StudentModel studentModel){
         if(studentModel.getCourseModels() == null){
-           studentModel.setCourseModels(Collections.emptySet());
+            studentModel.setCourseModels(Collections.emptySet());
         }
         defaultStudentService.addStudent(studentModel);
         return defaultStudentService.findById(studentModel.getId());
@@ -127,3 +127,4 @@ public class StudentController {
         System.out.println("User is not found.");
     }
 }
+

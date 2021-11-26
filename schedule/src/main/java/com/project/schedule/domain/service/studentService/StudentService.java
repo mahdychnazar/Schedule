@@ -41,7 +41,7 @@ public class StudentService implements DefaultStudentService{
         ThreadContext.put("student.id", student.getId().toString());
         ThreadContext.put("student.name", student.getName());
         studentRepo.addStudent(student);
-        logger.info(STUDENT_MARKER, "Student having id {} and name {} is added", student.getId(), student.getName() );
+        logger.info(STUDENT_MARKER, "Student having id {} and name {} is added", student.getId(), student.getName());
         ThreadContext.clearAll();
     }
 

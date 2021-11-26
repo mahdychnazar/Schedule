@@ -9,12 +9,10 @@
         <Console name = "checkStudentAdding" target = "SYSTEM_OUT">
             <PatternLayout  pattern="%-4r [%t] %5p %c{1} - %m - student.id=%X{student.id} student.name=%X{student.name}%n"/>
             <MarkerFilter marker="checkStudent" onMatch="ACCEPT" onMismatch="DENY" />
-            >
         </Console>
         <Console name = "checkCourseAdding" target = "SYSTEM_OUT">
             <PatternLayout  pattern="%-4r [%t] %5p %c{1} - %m - course.id=%X{course.id} course.name=%X{course.name}%n"/>
             <MarkerFilter marker="checkCourse" onMatch="ACCEPT" onMismatch="DENY" />
-            >
         </Console>
         <Console name = "Console" target = "SYSTEM_OUT">
             <PatternLayout  pattern="%-4r [%t] %5p %c{1} - %m %n"/>
@@ -23,7 +21,6 @@
         <CustomAppender name = "myAppender">
             <CustomLayout/>
             <MarkerFilter marker="GENERAL" onMatch="ACCEPT" onMismatch="DENY" />
-            >
         </CustomAppender>
         <RollingFile name="RollingFile"
                      fileName="./logs/spring-boot-logger-log4j2.log"

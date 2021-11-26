@@ -1,16 +1,14 @@
-package com.project.schedule.domain.service.studentService;
+package com.project.schedule.domain.service.courseService;
 
 import com.project.schedule.ScheduleApplication;
 import com.project.schedule.domain.model.CourseModel;
 import com.project.schedule.persistence.mapper.MainMapper;
 import com.project.schedule.persistence.repository.CourseRepo.DefaultCourseRepo;
 import org.apache.logging.log4j.*;
-import org.jboss.jandex.Main;
 import org.springframework.stereotype.Service;
 
 
 import java.util.List;
-import java.util.Set;
 
 @Service
 public class CourseService implements DefaultCourseService{
