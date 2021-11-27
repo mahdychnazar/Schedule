@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org"
-      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org" lang="">
 <head>
     <title>Login</title>
 </head>
 <body>
+Login page
 <div th:if="${param.error}">
     Invalid username or password.
 </div>
@@ -16,6 +16,6 @@
     <div><label> Password: <input type="password" name="password"/> </label></div>
     <div><input type="submit" value="Sign In"/></div>
 </form>
-<a href = "/registration">registrate</a>
+<a th:href = "@{/registration}">registrate</a>
 </body>
 </html>

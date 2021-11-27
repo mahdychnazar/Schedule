@@ -1,6 +1,7 @@
 package com.project.schedule.domain.model;
 
 import com.sun.istack.NotNull;
+import lombok.Builder;
 import org.springframework.lang.NonNull;
 
 import javax.validation.constraints.Email;
@@ -9,6 +10,7 @@ import javax.validation.constraints.NotBlank;
 import java.time.LocalDateTime;
 import java.util.Set;
 
+@Builder
 public class StudentModel {
 
     @NotNull

@@ -1,5 +1,6 @@
 package com.project.schedule.persistence.repository.entity;
 
+import lombok.Builder;
 import org.springframework.lang.NonNull;
 
 import javax.persistence.*;
@@ -42,6 +43,7 @@ public class Student {
 
     }
 
+    @Builder
     public Student(Long id, @NonNull String name, @NonNull String email, int age, @NonNull LocalDateTime birthDate) {
         this.id = id;
         this.name = name;
