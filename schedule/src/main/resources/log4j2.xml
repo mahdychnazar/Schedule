@@ -15,7 +15,7 @@
             <MarkerFilter marker="checkCourse" onMatch="ACCEPT" onMismatch="DENY" />
         </Console>
         <Console name = "Console" target = "SYSTEM_OUT">
-            <PatternLayout  pattern="%-4r [%t] %5p %c{1} - %m %n"/>
+            <MarkerFilter marker="marker" onMatch="ACCEPT" onMismatch="DENY" />
             >
         </Console>
         <CustomAppender name = "myAppender">

@@ -1,5 +1,7 @@
 package com.project.schedule.api.controller;
 
+import com.project.schedule.Aspects.LogParams;
+import com.project.schedule.Aspects.LogTime;
 import com.project.schedule.domain.model.CourseModel;
 import com.project.schedule.domain.model.StudentModel;
 import com.project.schedule.domain.service.studentService.DefaultStudentService;
@@ -28,6 +30,8 @@ public class StudentController {
         this.defaultStudentService = defaultCourseService;
     }
 
+    @LogParams
+    @LogTime
     @Operation(summary = "Get all students")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Returned all students",
@@ -40,6 +44,8 @@ public class StudentController {
         return "students";
     }
 
+    @LogParams
+    @LogTime
     @Operation(summary = "Create student")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Updated the student",
@@ -56,6 +62,8 @@ public class StudentController {
         return defaultStudentService.findById(studentModel.getId());
     }
 
+    @LogParams
+    @LogTime
     @Operation(summary = "Get a course by its id")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Get the course by id",
@@ -70,6 +78,8 @@ public class StudentController {
         return defaultStudentService.findById(Long.parseLong(id));
     }
 
+    @LogParams
+    @LogTime
     @Operation(summary = "Update a student by its id")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Updated the student",
@@ -91,6 +101,8 @@ public class StudentController {
         }
     }
 
+    @LogParams
+    @LogTime
     @Operation(summary = "Update a student by its id")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Updated the student",
@@ -108,6 +120,8 @@ public class StudentController {
         return newStudent;
     }
 
+    @LogParams
+    @LogTime
     @Operation(summary = "Delete a student by its id")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Deleted the student",

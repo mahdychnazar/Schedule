@@ -1,5 +1,7 @@
 package com.project.schedule.api.controller;
 
+import com.project.schedule.Aspects.LogParams;
+import com.project.schedule.Aspects.LogTime;
 import com.project.schedule.domain.model.CourseModel;
 import com.project.schedule.domain.service.courseService.DefaultCourseService;
 import com.project.schedule.exceptions.CourseNotFoundException;
@@ -28,6 +30,8 @@ public class CourseController {
         this.defaultCourseService = defaultCourseService;
     }
 
+    @LogParams
+    @LogTime
     @Operation(summary = "Get all courses")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Found courses",
@@ -40,6 +44,8 @@ public class CourseController {
         model.addAttribute("courses", allCourses);
         return "courses";
     }
+    @LogParams
+    @LogTime
     @Operation(summary = "Get a course by its id")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Found the course",
@@ -54,6 +60,8 @@ public class CourseController {
         return defaultCourseService.findById(Long.parseLong(id));
     }
 
+    @LogParams
+    @LogTime
     @Operation(summary = "Create course")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Created course",
@@ -69,6 +77,8 @@ public class CourseController {
         defaultCourseService.addCourse(courseModel);
         return defaultCourseService.findById(courseModel.getId());
     }
+    @LogParams
+    @LogTime
     @Operation(summary = "Update a course by its id")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Updated the course",
