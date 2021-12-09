@@ -6,6 +6,7 @@ import com.project.schedule.domain.model.CourseModel;
 import com.project.schedule.domain.model.StudentModel;
 import com.project.schedule.domain.service.courseService.DefaultCourseService;
 import com.project.schedule.domain.service.studentService.DefaultStudentService;
+import com.project.schedule.jobs.DBToLoggerJob;
 import com.project.schedule.persistence.repository.UserRepo.DefaultUserRepo;
 import com.project.schedule.persistence.repository.entity.Role;
 import com.project.schedule.persistence.repository.entity.User;
@@ -13,16 +14,19 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.Marker;
 import org.apache.logging.log4j.MarkerManager;
+import org.quartz.*;
+import org.quartz.impl.StdSchedulerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.util.Collections;
 
 
-
+@EnableScheduling
 @SpringBootApplication
 public class ScheduleApplication implements CommandLineRunner {
 	private static final Logger logger = LogManager.getLogger(ScheduleApplication.class);
@@ -57,6 +61,7 @@ public class ScheduleApplication implements CommandLineRunner {
 
 		crudOperations();
 		addStudentToCourses();
+		schedulerStart();
 
 	}
 
@@ -86,6 +91,36 @@ public class ScheduleApplication implements CommandLineRunner {
 		logger.trace( ADMIN_USER,courseService.findByAuthor("Kozerenko"));
 		starterService.starterFunc();
 		logger.info(GENERAL_USER,"***********************Success***********************");
+	}
+
+	private void schedulerStart() throws SchedulerException {
+		SchedulerFactory schedulerFactory = new StdSchedulerFactory();
+		Scheduler scheduler = schedulerFactory.getScheduler();
+		JobDetail dbToLoggerJob = JobBuilder.newJob(DBToLoggerJob.class)
+				.withIdentity("DBToLoggerJob", "group1")
+				.usingJobData("studentService", String.valueOf(studentService.getAllStudents()))
+				.usingJobData("courseService", String.valueOf(courseService.getAllCourses()))
+				.build();
+		Trigger triggerToDB = TriggerBuilder.newTrigger()
+				.withIdentity("myTrigger", "group1")
+				.startNow()
+				.withSchedule(SimpleScheduleBuilder.simpleSchedule()
+						.withIntervalInSeconds(40)
+						.repeatForever())
+				.forJob("DBToLoggerJob", "group1")
+				.build();
+		JobDetail StudentsInfoJob = JobBuilder.newJob(DBToLoggerJob.class)
+				.withIdentity("StudentsInfoJob", "group2")
+				.usingJobData("studentsAmountOnTopology", String.valueOf(courseService.findByTitle("Topology").getStudentModelSet().size()))
+				.build();
+		CronTrigger triggerStudentsTopologyInfo = TriggerBuilder.newTrigger()
+				.withIdentity("crontrigger", "group2")
+				.withSchedule(CronScheduleBuilder.cronSchedule("0 0 12 * * ?"))
+				.forJob("StudentsInfoJob", "group2")
+				.build();
+		scheduler.scheduleJob(dbToLoggerJob, triggerToDB);
+		scheduler.scheduleJob(StudentsInfoJob, triggerStudentsTopologyInfo);
+		scheduler.start();
 	}
 
 }

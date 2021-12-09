@@ -5,6 +5,8 @@ import com.project.schedule.domain.model.CourseModel;
 import com.project.schedule.persistence.mapper.MainMapper;
 import com.project.schedule.persistence.repository.CourseRepo.DefaultCourseRepo;
 import org.apache.logging.log4j.*;
+import org.springframework.cache.annotation.CachePut;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 
@@ -28,11 +30,13 @@ public class CourseService implements DefaultCourseService{
     }
 
     @Override
+    @Cacheable("course")
     public CourseModel findById(long id) {
         return MainMapper.courseToCourseModel(courseRepo.findById(id));
     }
 
     @Override
+    @Cacheable("courseTitle")
     public CourseModel findByTitle(String title) {
         return MainMapper.courseToCourseModel(courseRepo.findByTitle(title));
     }
@@ -43,6 +47,7 @@ public class CourseService implements DefaultCourseService{
     }
 
     @Override
+    @CachePut(value = "courses", key = "#course.id")
     public void addCourse(CourseModel course) {
         ThreadContext.put("course.id", course.getId().toString());
         ThreadContext.put("course.name", course.getDescription());
