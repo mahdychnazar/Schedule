@@ -102,6 +102,7 @@ public class MainMapper {
         courseModel.setLector(course.getLector());
         courseModel.setDescription(course.getDescription());
         courseModel.setStudentModelSet(studentsToLongModel(course.getStudentSet()));
+        courseModel.setTimeForCourses(courseModel.getTimeForCourses());
         return courseModel;
     }
 
@@ -120,6 +121,7 @@ public class MainMapper {
         course.setLector(courseModel.getLector());
         course.setDescription(courseModel.getDescription());
         course.setStudentSet(LongToStudents(courseModel.getStudentModelSet()));
+        course.setTimeForCourses(courseModel.getTimeForCourses());
         return course;
     }
 

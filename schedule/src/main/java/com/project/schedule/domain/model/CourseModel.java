@@ -1,6 +1,6 @@
 package com.project.schedule.domain.model;
 
-import com.sun.istack.NotNull;
+import com.project.schedule.persistence.repository.entity.TimeForCourseEntity;
 
 import javax.validation.constraints.NotBlank;
 import java.util.List;
@@ -17,7 +17,18 @@ public class CourseModel {
     String lector;
     List<Long> studentModelSet;
 
+    Set<TimeForCourseEntity> timeForCourses;
+
     public CourseModel() {
+    }
+
+    public CourseModel(Long id, String title, String description, String lector, List<Long> studentModelSet, Set<TimeForCourseEntity> timeForCourses) {
+        this.id = id;
+        this.title = title;
+        this.description = description;
+        this.lector = lector;
+        this.studentModelSet = studentModelSet;
+        this.timeForCourses = timeForCourses;
     }
 
     public CourseModel(Long id, @NotBlank(message = "Title can't be blank.") String title, String description, @NotBlank(message = "Lector can't be blank.") String lector, List<Long> studentModels) {
@@ -69,6 +80,14 @@ public class CourseModel {
 
     public void setStudentModelSet(List<Long> studentModelSet) {
         this.studentModelSet = studentModelSet;
+    }
+
+    public Set<TimeForCourseEntity> getTimeForCourses() {
+        return timeForCourses;
+    }
+
+    public void setTimeForCourses(Set<TimeForCourseEntity> timeForCourses) {
+        this.timeForCourses = timeForCourses;
     }
 
     @Override

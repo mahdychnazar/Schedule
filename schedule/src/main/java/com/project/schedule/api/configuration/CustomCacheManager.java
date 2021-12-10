@@ -36,6 +36,7 @@ public class CustomCacheManager implements CacheManager {
     }
 
     public void setCaches(List<ConcurrentMapCache> asList) {
-        asList.stream().forEach(concurrentMapCache -> cacheMap.put(concurrentMapCache.getName(), concurrentMapCache));
+        asList.forEach(concurrentMapCache -> cacheMap.put(concurrentMapCache.getName(), concurrentMapCache));
+        asList.forEach(concurrentMapCache -> cacheNames.add(concurrentMapCache.getName()));
     }
 }

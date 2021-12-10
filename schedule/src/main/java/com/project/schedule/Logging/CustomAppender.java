@@ -1,12 +1,17 @@
 package com.project.schedule.Logging;
 
-import java.io.Serializable;
-import java.util.concurrent.locks.*;
-import org.apache.logging.log4j.core.*;
+import org.apache.logging.log4j.core.Filter;
+import org.apache.logging.log4j.core.Layout;
+import org.apache.logging.log4j.core.LogEvent;
 import org.apache.logging.log4j.core.appender.AbstractAppender;
 import org.apache.logging.log4j.core.appender.AppenderLoggingException;
-import org.apache.logging.log4j.core.config.plugins.*;
+import org.apache.logging.log4j.core.config.plugins.Plugin;
+import org.apache.logging.log4j.core.config.plugins.PluginAttribute;
+import org.apache.logging.log4j.core.config.plugins.PluginElement;
+import org.apache.logging.log4j.core.config.plugins.PluginFactory;
 import org.apache.logging.log4j.core.layout.PatternLayout;
+
+import java.io.Serializable;
 
 @Plugin(name="CustomAppender", category="Core", elementType="appender", printObject=true)
 public final class CustomAppender extends AbstractAppender {

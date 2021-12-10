@@ -26,8 +26,25 @@ public class Course {
     @ManyToMany(mappedBy = "courses", fetch = FetchType.EAGER)
     List<Student> studentSet = new ArrayList<>();
 
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
+    @JoinTable(name = "courses_timeslots", joinColumns = {
+            @JoinColumn(name = "course_id", referencedColumnName = "id")
+    },
+            inverseJoinColumns = {
+                    @JoinColumn(name = "timeslot_id", referencedColumnName = "id")
+            })
+    Set<TimeForCourseEntity> timeForCourses = new HashSet<>();
+
     public Course(){
 
+    }
+
+    public Course(long id, String title, String description, String lector, List<Student> studentSet, Set<WeekDays> days) {
+        this.id = id;
+        this.title = title;
+        this.description = description;
+        this.lector = lector;
+        this.studentSet = studentSet;
     }
 
     public Course(long id, String title, String description, String lector) {
@@ -75,6 +92,14 @@ public class Course {
 
     public void setStudentSet(List<Student> studentSet) {
         this.studentSet = studentSet;
+    }
+
+    public Set<TimeForCourseEntity> getTimeForCourses() {
+        return timeForCourses;
+    }
+
+    public void setTimeForCourses(Set<TimeForCourseEntity> timeForCourses) {
+        this.timeForCourses = timeForCourses;
     }
 
     @Override

@@ -6,8 +6,9 @@
 </head>
 <body>
 <h1>Welcome to schedule site.</h1>
-<div><label>If you want to registrate, click </label> <a href = "/registration">here.</a></div>
+<div sec:authorize="isAnonymous()"><label>If you want to registrate, click </label> <a href = "/registration">here.</a>
 <a href = "/login">Already have an account?</a>
+</div>
 
 <div  sec:authorize="hasAuthority('ADMIN')">To see students' info, click <a href = "/students/info" >here.</a></div>
 <div  sec:authorize="hasAnyAuthority('ADMIN','USER')">To see courses' info, click <a href = "/courses/info" >here.</a></div>

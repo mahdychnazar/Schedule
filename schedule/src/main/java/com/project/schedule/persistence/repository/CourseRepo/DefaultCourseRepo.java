@@ -5,7 +5,6 @@ import com.project.schedule.domain.model.CourseModel;
 import com.project.schedule.persistence.repository.entity.Course;
 
 import java.util.List;
-import java.util.Set;
 
 public interface DefaultCourseRepo {
 

@@ -3,7 +3,6 @@ package com.project.schedule.domain.service.courseService;
 import com.project.schedule.domain.model.CourseModel;
 
 import java.util.List;
-import java.util.Set;
 
 public interface DefaultCourseService {
 

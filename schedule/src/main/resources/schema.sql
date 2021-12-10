@@ -34,4 +34,3 @@ create table students_courses
 
 create index students_courses_courses_id_fk
     on students_courses (course_id);
-

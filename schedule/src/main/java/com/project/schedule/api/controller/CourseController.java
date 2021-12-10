@@ -5,6 +5,9 @@ import com.project.schedule.Aspects.LogTime;
 import com.project.schedule.domain.model.CourseModel;
 import com.project.schedule.domain.service.courseService.DefaultCourseService;
 import com.project.schedule.exceptions.CourseNotFoundException;
+import com.project.schedule.persistence.repository.TimeSlotRepo.TimeSlotRepo;
+import com.project.schedule.persistence.repository.entity.TimeForCourseEntity;
+import com.project.schedule.persistence.repository.entity.WeekDays;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -23,11 +26,14 @@ import java.util.List;
 @Controller
 public class CourseController {
 
-    DefaultCourseService defaultCourseService;
     private static final Logger logger = LogManager.getLogger(CourseController.class);
 
-    public CourseController(DefaultCourseService defaultCourseService) {
+    DefaultCourseService defaultCourseService;
+    TimeSlotRepo timeSlotRepo;
+
+    public CourseController(DefaultCourseService defaultCourseService, TimeSlotRepo timeSlotRepo) {
         this.defaultCourseService = defaultCourseService;
+        this.timeSlotRepo = timeSlotRepo;
     }
 
     @LogParams
@@ -44,6 +50,16 @@ public class CourseController {
         model.addAttribute("courses", allCourses);
         return "courses";
     }
+
+    @GetMapping("/courses/schedule/{day}")
+    public Object getSchedule(@PathVariable(name = "day") String day,Model model){
+        WeekDays weekDays = WeekDays.valueOf(day.toUpperCase());
+        List<TimeForCourseEntity> all = timeSlotRepo.findAllByDays(weekDays);
+        model.addAttribute("timeslots", all);
+        model.addAttribute("day", day.toUpperCase());
+        return "schedule";
+    }
+
     @LogParams
     @LogTime
     @Operation(summary = "Get a course by its id")

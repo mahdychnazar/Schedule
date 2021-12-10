@@ -1,9 +1,10 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:sec="http://www.w3.org/1999/xhtml">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
-    <meta charset="UTF-8">
-    <title>Main page</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>Courses</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link href="/css/schedule.css" rel="stylesheet">
 </head>
 <body>
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
@@ -26,6 +27,7 @@
                 <li class="nav-item">
                     <a class="nav-link" th:href="@{/courses/schedule/monday}">Schedule</a>
                 </li>
+
                 <li class="nav-item">
                     <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true"><img src="/img/ukraine.png" alt=""></a>
                 </li>
@@ -34,11 +36,33 @@
         </div>
     </div>
 </nav>
-<h1>Welcome to schedule site.</h1>
-<h3>Created by <span class="badge bg-secondary">DrMiracle</span>, <span class="badge bg-secondary">Nazar</span>,
-    <span class="badge bg-secondary">Smfun12</span></h3>
+<table class="table table-info table-striped">
+    <thead>
+    <tr>
+        <th scope="col">Day</th>
+        <th scope="col">Courses</th>
+    </tr>
+    </thead>
+<tbody>
 
-<div>To see students' info, click <a href = "/students/info" >here.</a></div>
+    <h2 th:text="${day}"> </h2>
+    <tr th:each="timeslot : ${timeslots}">
+        <td><span th:text="${timeslot.time.toString()}"> </span></td>
+        <td><span th:each="course : ${timeslot.course}">
+        <span class="badge badge-success" th:text="${course.title+','+course.lector}">
+        </span>
+        </span>
+        </td>
+    </tr>
+</tbody>
+</table>
+<a class="btn btn-outline-info" th:href="@{/courses/schedule/{day}(day=${'monday'})}">Monday</a>
+<a class="btn btn-outline-info" th:href="@{/courses/schedule/{day}(day=${'tuesday'})}">Tuesday</a>
+<a class="btn btn-outline-info" th:href="@{/courses/schedule/{day}(day=${'wednesday'})}">Wednesday</a>
+<a class="btn btn-outline-info" th:href="@{/courses/schedule/{day}(day=${'thursday'})}">Thursday</a>
+<a class="btn btn-outline-info" th:href="@{/courses/schedule/{day}(day=${'friday'})}">Friday</a>
+<a class="btn btn-outline-info" th:href="@{/courses/schedule/{day}(day=${'saturday'})}">Saturday</a>
+
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 </body>
 </html>
